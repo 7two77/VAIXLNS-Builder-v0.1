@@ -18,3 +18,4 @@ pub use ir::CanonicalSpec;
 pub use planner::BuildPlan;
 pub use evidence::Evidence;
 pub use gate::GenesisGate;
+pub mod verification;

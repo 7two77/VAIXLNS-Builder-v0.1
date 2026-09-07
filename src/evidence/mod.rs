@@ -4,6 +4,7 @@
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::time::{SystemTime, UNIX_EPOCH};
+use crate::verification::LeanVerifier;
 
 #[derive(Debug, Clone)]
 pub struct Evidence {
@@ -87,6 +88,20 @@ impl Evidence {
         self
     }
 
+    pub fn verify_formal_proofs(&mut self, proof_dir: &str) -> bool {
+        let verifier = LeanVerifier::new();
+        match verifier.verify_proofs(proof_dir) {
+            Ok(true) => {
+                self.formal_proof_status = "VERIFIED".to_string();
+                true
+            }
+            _ => {
+                self.formal_proof_status = "FAILED".to_string();
+                false
+            }
+        }
+    }
+
     pub fn compute_combined_hash(&self) -> String {
         let mut hasher = DefaultHasher::new();
         self.spec_hash.hash(&mut hasher);
@@ -115,6 +130,7 @@ impl Evidence {
             && !self.artifact_hash.is_empty()
             && self.compiler_status == "PASS"
             && self.tests_failed == 0
+            && self.formal_proof_status == "VERIFIED"
     }
 
     pub fn pretty_print(&self) -> String {
