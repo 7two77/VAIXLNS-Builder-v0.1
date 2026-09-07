@@ -1,9 +1,9 @@
-// graph module - VAIXLNS Builder
+// Graph module - Dependency Graph
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct DependencyGraph;
 
-impl Placeholder {
+impl DependencyGraph {
     pub fn new() -> Self {
         Self
     }

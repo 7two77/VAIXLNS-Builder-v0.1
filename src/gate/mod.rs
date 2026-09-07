@@ -1,9 +1,9 @@
-// gate module - VAIXLNS Builder
+// Gate module - Finality Gate
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct GenesisGate;
 
-impl Placeholder {
+impl GenesisGate {
     pub fn new() -> Self {
         Self
     }

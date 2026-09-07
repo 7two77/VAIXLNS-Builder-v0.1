@@ -1,9 +1,9 @@
-// constitution module - VAIXLNS Builder
+// Constitution module - Constitutional Control
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct Constitution;
 
-impl Placeholder {
+impl Constitution {
     pub fn new() -> Self {
         Self
     }

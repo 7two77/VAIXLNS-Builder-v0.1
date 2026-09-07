@@ -1,9 +1,9 @@
-// self_build module - VAIXLNS Builder
+// Self Build module - Self-Build Pipeline
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct SelfBuild;
 
-impl Placeholder {
+impl SelfBuild {
     pub fn new() -> Self {
         Self
     }

@@ -1,9 +1,9 @@
-// evolution module - VAIXLNS Builder
+// Evolution module - Evolution Engine
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct EvolutionEngine;
 
-impl Placeholder {
+impl EvolutionEngine {
     pub fn new() -> Self {
         Self
     }

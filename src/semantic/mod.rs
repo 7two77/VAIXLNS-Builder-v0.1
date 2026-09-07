@@ -1,9 +1,9 @@
-// semantic module - VAIXLNS Builder
+// Semantic module - Semantic Validator
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct SemanticValidator;
 
-impl Placeholder {
+impl SemanticValidator {
     pub fn new() -> Self {
         Self
     }

@@ -1,9 +1,9 @@
-// evidence module - VAIXLNS Builder
+// Evidence module - Build Evidence & Certification
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct Evidence;
 
-impl Placeholder {
+impl Evidence {
     pub fn new() -> Self {
         Self
     }

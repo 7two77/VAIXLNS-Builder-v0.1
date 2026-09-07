@@ -1,9 +1,9 @@
-// hash module - VAIXLNS Builder
+// Hash module - Artifact Hashing
 // VAIXLNS Builder v0.1
 
-pub struct Placeholder;
+pub struct Hasher;
 
-impl Placeholder {
+impl Hasher {
     pub fn new() -> Self {
         Self
     }
