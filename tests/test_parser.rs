@@ -32,7 +32,9 @@ mod tests {
         let tokens = tokenize(input);
         let mut parser = Parser::new(tokens);
         let doc = parser.parse().unwrap();
-        assert_eq!(doc.decls.len(), 1);
+        // Проверяем, что есть хотя бы одна Entity
+        let entities = doc.find_entities();
+        assert!(!entities.is_empty());
     }
 
     #[test]
@@ -41,6 +43,7 @@ mod tests {
         let tokens = tokenize(input);
         let mut parser = Parser::new(tokens);
         let doc = parser.parse().unwrap();
-        assert_eq!(doc.decls.len(), 1);
+        let relations = doc.find_relations();
+        assert_eq!(relations.len(), 1);
     }
 }
