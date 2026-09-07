@@ -1,0 +1,27 @@
+vaixlns_root {
+    meta {
+        id "VAIXLNS://TEST/1.0"
+        name "Test Root"
+        version "1.0.0"
+        authority "TEST"
+    }
+    ontology {
+        entities {
+            core.kernel {
+                domain core
+                kind "kernel"
+                provides ["identity"]
+                requires []
+            }
+            runtime.engine {
+                domain runtime
+                kind "engine"
+                provides ["execute"]
+                requires ["core.kernel"]
+            }
+        }
+        relations {
+            link core.kernel -> runtime.engine
+        }
+    }
+}

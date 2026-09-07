@@ -1,0 +1,35 @@
+vaixlns_root {
+    meta {
+        id "VAIXLNS://TEST/CYCLE/1.0"
+        name "Cycle Test"
+        version "1.0.0"
+        authority "TEST"
+    }
+    ontology {
+        entities {
+            A {
+                domain test
+                kind "a"
+                provides []
+                requires ["B"]
+            }
+            B {
+                domain test
+                kind "b"
+                provides []
+                requires ["C"]
+            }
+            C {
+                domain test
+                kind "c"
+                provides []
+                requires ["A"]
+            }
+        }
+        relations {
+            link A -> B
+            link B -> C
+            link C -> A
+        }
+    }
+}

@@ -1,0 +1,34 @@
+vaixlns_root {
+    meta {
+        id "VAIXLNS://TEST/DEP/1.0"
+        name "Dependency Test"
+        version "1.0.0"
+        authority "TEST"
+    }
+    ontology {
+        entities {
+            A {
+                domain test
+                kind "a"
+                provides []
+                requires []
+            }
+            B {
+                domain test
+                kind "b"
+                provides []
+                requires ["A"]
+            }
+            C {
+                domain test
+                kind "c"
+                provides []
+                requires ["B"]
+            }
+        }
+        relations {
+            link A -> B
+            link B -> C
+        }
+    }
+}
