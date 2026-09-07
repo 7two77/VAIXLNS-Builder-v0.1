@@ -1,0 +1,35 @@
+vaixlns_root {
+    meta {
+        id          "VAIXLNS://ROOT/GENESIS/1.0"
+        name        "VAIXLNS Civilization Root"
+        version     "1.0.0"
+        authority   "VX_SOVEREIGN_CORE"
+    }
+
+    ontology {
+        domains {
+            core    "Civilization Core"
+            runtime "Execution Substrate"
+        }
+
+        entities {
+            core.kernel {
+                domain      core
+                kind        "kernel"
+                provides    ["identity", "timebase"]
+                requires    []
+            }
+
+            runtime.engine {
+                domain      runtime
+                kind        "execution_engine"
+                provides    ["execute", "replay"]
+                requires    ["core.kernel"]
+            }
+        }
+
+        relations {
+            link core.kernel -> runtime.engine
+        }
+    }
+}

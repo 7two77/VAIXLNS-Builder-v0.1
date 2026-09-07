@@ -1,0 +1,20 @@
+pub mod lexer;
+pub mod parser;
+pub mod ast;
+pub mod ir;
+pub mod semantic;
+pub mod graph;
+pub mod planner;
+pub mod generator;
+pub mod hash;
+pub mod evidence;
+pub mod gate;
+pub mod evolution;
+pub mod constitution;
+pub mod self_build;
+
+pub use ast::Document;
+pub use ir::CanonicalSpec;
+pub use planner::BuildPlan;
+pub use evidence::Evidence;
+pub use gate::GenesisGate;
