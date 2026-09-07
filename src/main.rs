@@ -48,7 +48,6 @@ fn main() {
         Ok(d) => {
             println!("✅ Parser: {} declarations parsed", d.decls.len());
             
-            // Show declaration types
             for (i, decl) in d.decls.iter().enumerate() {
                 let type_name = match decl {
                     vaixlns_builder::ast::Decl::Meta(_) => "Meta",
@@ -125,7 +124,6 @@ fn main() {
             println!("   ✅ Build plan validated");
             println!("   📊 Total phases: {}", plan.phases.len());
             
-            // Show phases
             for phase in &plan.phases {
                 println!("      Phase {}: {} ({} nodes)", 
                     phase.index, phase.kind, phase.nodes.len());
@@ -162,6 +160,7 @@ fn main() {
     println!("📜 Creating Evidence...");
     let mut evidence = Evidence::new()
         .with_spec_hash(&format!("{:016x}", input.len() * 0xDEADBEEF))
+        .with_ast_hash(&format!("{:016x}", doc.decls.len() * 0xABCDEF01))
         .with_ir_hash(&format!("{:016x}", spec.entities.len() * 0xCAFEBABE))
         .with_plan_hash(&format!("{:016x}", plan.phases.len() * 0xBAADF00D))
         .with_artifact_hash(&format!("{:016x}", output.len() * 0xDEADBEEF))

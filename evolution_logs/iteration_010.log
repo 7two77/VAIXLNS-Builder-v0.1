@@ -1,0 +1,94 @@
+    Finished `release` profile [optimized] target(s) in 0.02s
+     Running `target/release/vaixlns-builder VAIXLNS_ROOT.lns output/evolved_010.rs`
+╔════════════════════════════════════════════╗
+║   VAIXLNS Builder v0.1 - Bootstrap        ║
+╚════════════════════════════════════════════╝
+
+✅ Loaded VAIXLNS_ROOT.lns (854 bytes)
+
+🔍 Lexer: 68 tokens found
+
+✅ Parser: 6 declarations parsed
+      1: Meta
+      2: Domain
+      3: Domain
+      4: Entity
+      5: Entity
+      6: Relation
+
+📐 Building Canonical IR...
+   ✅ IR built successfully
+   📊 Entities: 2
+   📊 Relations: 1
+
+🔬 Validating IR...
+   ✅ IR validation passed
+
+📊 Building dependency graph...
+   ✅ 2 nodes, 1 edges
+   ✅ Graph is acyclic (DAG)
+
+📐 Topological sort...
+   ✅ 2 nodes sorted
+
+📋 Creating Build Plan...
+   ✅ Build plan validated
+   📊 Total phases: 2
+      Phase 0: Kernel (1 nodes)
+      Phase 1: Runtime (1 nodes)
+
+⚙️  Generating code...
+   ✅ Generated code saved to output/evolved_010.rs (6134 bytes)
+
+📜 Creating Evidence...
+   ✅ Evidence created and finalized
+
+🚪 Running Finality Gate...
+
+╔════════════════════════════════════════════╗
+║           EVIDENCE REPORT                ║
+╚════════════════════════════════════════════╝
+
+Builder:      0.1.0
+Timestamp:    1788805529
+Spec Hash:    000002e6d79af14a
+AST Hash:     0000000406d39a06
+IR Hash:      0000000195fd757c
+Plan Hash:    00000001755be01a
+Artifact Hash: 000014d7971cf2aa
+Compiler:     PASS
+Tests:        10 passed, 0 failed
+Formal Proof: VERIFIED
+Evidence Root: 0e60ad8459f48bda
+Finality:     FINALIZED
+
+
+╔════════════════════════════════════════════╗
+║           FINALITY GATE                  ║
+╚════════════════════════════════════════════╝
+
+Specification:      ✅ PASS
+Parsing:            ✅ PASS
+Semantic:           ✅ PASS
+Dependency Graph:   ✅ PASS
+Acyclicity:         ✅ PASS
+Build Plan:         ✅ PASS
+Generation:         ✅ PASS
+Determinism:        ✅ PASS
+Compilation:        ✅ PASS
+Tests:              ✅ PASS
+Formal Proof:       ✅ PASS
+Evidence:           ✅ PASS
+Finality:           ✅ PASS
+
+✅ GENESIS = FINALIZED
+
+╔════════════════════════════════════════════╗
+║         🎉 GENESIS COMPLETE! 🎉          ║
+║   All checks passed.                     ║
+║   System is FINALIZED.                   ║
+╚════════════════════════════════════════════╝
+
+📦 VAIXLNS Builder is ready!
+   📁 Spec: VAIXLNS_ROOT.lns
+   📁 Output: output/evolved_010.rs
