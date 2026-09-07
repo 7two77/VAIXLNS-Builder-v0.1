@@ -1,2 +1,5 @@
 target/
 *.log
+.lake/
+proofs/lean/.lake/
+proofs/lean/lake-manifest.json
