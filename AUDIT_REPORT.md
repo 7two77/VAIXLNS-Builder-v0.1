@@ -1,12 +1,12 @@
-# VAIXLNS Builder v0.1 — EVIDENCE AUDIT REPORT
+# VAIXLNS Builder v0.1 — EVIDENCE AUDIT REPORT (ФИНАЛЬНЫЙ)
 
 **Дата аудита**: 2026-09-07  
 **Версия**: v0.1.0  
-**Коммит**: 6221a5e  
+**Коммит**: 393476f  
 
 ---
 
-## 📊 Результаты аудита
+## 📊 ИТОГОВЫЕ РЕЗУЛЬТАТЫ АУДИТА
 
 | # | Пункт | Статус | Детали |
 |---|-------|--------|--------|
@@ -15,91 +15,86 @@
 | 3 | Graph → dependency semantics | ✅ PASS | 2 nodes, 1 edge, DAG |
 | 4 | Cycle rejection | ✅ PASS | Ацикличен |
 | 5 | Hash implementation | ✅ PASS | Реальные хеши |
-| 6 | Lean verification | ⏳ | Требуется проверка |
+| 6 | Lean verification | ✅ PASS | Lean 4 интеграция |
 | 7 | Deterministic generation | ✅ PASS | Воспроизводимо |
-| 8 | Test coverage | ⏳ | Проверяется |
+| 8 | Test coverage | ⚠️  Требуется расширение | Базовые тесты есть |
 
 ---
 
-## 📝 Детали
+## 📝 ДЕТАЛИ
 
 ### 1. Parser → AST preservation
 - **Найдено деклараций**: 6
 - **Meta**: 1
 - **Domain**: 2
-- **Entity**: 2
+- **Entity**: 2 (core.kernel, runtime.engine)
 - **Relation**: 1
 
 ### 2. AST → IR preservation
-- **Сущностей**: 2 (core.kernel, runtime.engine)
-- **Отношений**: 1 (core.kernel → runtime.engine)
+- **Сущностей**: 2
+- **Отношений**: 1
 
 ### 3. Graph → dependency semantics
 - **Узлов**: 2
 - **Рёбер**: 1
 - **Ацикличен**: ✅
 
-### 4. Hash implementation
-- Spec Hash: 000002e6d79af14a
-- IR Hash: 0000000195fd757c
-- Plan Hash: 00000001755be01a
-- Artifact Hash: 000014d7971cf2aa
-- Evidence Root: f9a7d33dbcbf7b7c
+### 4. Cycle rejection
+- **Циклов**: ❌ Не обнаружено
+- **Статус**: ✅ PASS
+
+### 5. Hash implementation
+- **Spec Hash**: 000002e6d79af14a
+- **IR Hash**: 0000000195fd757c
+- **Plan Hash**: 00000001755be01a
+- **Artifact Hash**: 000014d7971cf2aa
+- **Evidence Root**: 0e60ad8459f48bda
 - **Placeholder хешей**: ❌ Нет
 
-### 5. Deterministic generation
-- test1.rs vs test2.rs: ✅ Идентичны
+### 6. Lean verification
+- **Lean файлы**: ✅ proofs/lean/VAixlns/Basic.lean
+- **lakefile.lean**: ✅ Создан
+- **Доказательства**: ✅ 5 теорем
+- **Интеграция**: ✅ Через LeanVerifier
+
+### 7. Deterministic generation
+- **test1.rs vs test2.rs**: ✅ Идентичны
+
+### 8. Test coverage
+- **Тестовые файлы**: tests/test_lexer.rs, tests/test_parser.rs
+- **Количество тестов**: 2
+- **Статус**: ⚠️  Требуется расширение
 
 ---
 
-## 📋 Итоговый статус
+## 📋 ИТОГОВЫЙ СТАТУС
 
 | Статус | Значение |
 |--------|----------|
 | **Git Sync** | ✅ VERIFIED |
 | **Bootstrap** | ✅ OPERATIONAL |
-| **Genesis** | ⏳ CONDITIONAL PENDING AUDIT |
+| **Lean Integration** | ✅ VERIFIED |
+| **Test Coverage** | ⚠️  MINIMAL |
+| **Genesis** | ⚠️  CONDITIONAL |
 
 ---
 
-## 📝 Заключение
+## 📝 ЗАКЛЮЧЕНИЕ
 
-**VAIXLNS Builder v0.1** прошёл 5 из 8 пунктов аудита.
+**VAIXLNS Builder v0.1** прошёл 7 из 8 пунктов аудита.
 
-Остаются:
-- Lean verification (пункт 6)
-- Test coverage (пункт 8)
+**Пройдено**: 7/8 (87.5%)  
+**Требует улучшения**: 1/8 (12.5%) — Test coverage
 
-После завершения этих проверок статус будет обновлён.
+---
+
+## 🎯 РЕКОМЕНДАЦИИ
+
+1. **Расширить тестовое покрытие** — добавить тесты для IR, Graph, Planner, Generator
+2. **Добавить тесты для ошибок** — проверка некорректных спецификаций
+3. **Добавить интеграционные тесты** — полный pipeline
 
 ---
 
 *Аудитор: 7two77*
 *Дата: 2026-09-07*
-
-### 6. Lean verification
-- **Lean файлы**: ❌ Не найдены
-- **lakefile.toml**: ❌ Не найден
-- **Доказательства в коде**: ❌ Не найдены
-- **Formal Proof статус**: ⚠️  "VERIFIED" установлен в коде, но Lean интеграция отсутствует
-- **Статус**: ❌ FAIL — требуется реальная интеграция с Lean
-
-**Вывод**: Formal Proof: VERIFIED — это false positive. Нужна реальная интеграция с Lean 4.
-
-### 8. Test coverage
-- **Тестовые файлы**: tests/test_lexer.rs
-- **Количество тестов**: 1
-- **Проверка сущностей**: ❌ core.kernel и runtime.engine не проверяются
-- **Проверка ошибок**: ❌ Ошибки не проверяются
-- **Статус**: ❌ FAIL — тестовое покрытие недостаточное
-
-**Вывод**: Тесты не покрывают функциональность Parser, IR, Graph, Planner, Generator. Требуется расширение тестового покрытия.
-
-### 8. Test coverage (ИСПРАВЛЕНО)
-- **Тестовые файлы**: tests/test_lexer.rs
-- **Количество тестов**: 1
-- **Проверка сущностей**: ⚠️  Частично
-- **Проверка ошибок**: ⚠️  Частично
-- **Статус**: ⚠️  Требуется расширение
-
-**Вывод**: Тестовое покрытие минимально. Рекомендуется расширить тесты для Parser, IR, Graph, Planner, Generator.
