@@ -22,11 +22,17 @@ mod tests {
     #[test]
     fn test_parser_entity() {
         let input = r#"
-        core.kernel {
-            domain core
-            kind "kernel"
-            provides ["identity"]
-            requires []
+        vaixlns_root {
+            ontology {
+                entities {
+                    core.kernel {
+                        domain core
+                        kind "kernel"
+                        provides ["identity"]
+                        requires []
+                    }
+                }
+            }
         }
         "#;
         let tokens = tokenize(input);
@@ -35,6 +41,7 @@ mod tests {
         // Проверяем, что есть хотя бы одна Entity
         let entities = doc.find_entities();
         assert!(!entities.is_empty());
+        assert_eq!(entities[0].id, "core.kernel");
     }
 
     #[test]
