@@ -14,43 +14,22 @@
 | **Bootstrap** | ✅ OPERATIONAL | cargo build --release |
 | **Lean Integration** | ✅ VERIFIED | proofs/lean/VAixlns/Basic.lean |
 | **Determinism** | ✅ VERIFIED | test1.rs == test2.rs |
-| **Test Coverage** | ⚠️ MINIMAL | 2 теста |
+| **Test Coverage** | ⚠️ EXPANDING | 8 тестов (7/8 PASS) |
 
 ---
 
-## 📋 История
-
-
-
----
-
-## 🎯 Следующие шаги
-
-1. **TEST-003** — IR preservation
-2. **TEST-004** — Dependency semantics
-3. **TEST-005** — Cycle rejection
-4. **TEST-006** — Planner
-5. **TEST-007** — Deterministic Generator
-6. **TEST-008** — Hash integrity
-7. **TEST-009** — Lean verification
-8. **TEST-010** — Full integration
-
----
-
-*Цель: GENESIS FINALIZED после прохождения всех 10 тестов*
-
-## ✅ Выполненные тесты
+## ✅ Выполненные тесты (7/8)
 
 | Тест | Статус | Описание |
 |------|--------|----------|
-| TEST-003 | ⏳ | IR preservation |
-| TEST-004 | ⏳ | Dependency semantics |
-| TEST-005 | ⏳ | Cycle rejection |
-| TEST-006 | ⏳ | Planner |
-| TEST-007 | ⏳ | Deterministic Generator |
-| TEST-008 | ⏳ | Hash integrity |
-| TEST-009 | ⏳ | Lean verification |
-| TEST-010 | ⏳ | Full integration |
+| TEST-003 | ✅ PASS | IR preservation |
+| TEST-004 | ⏳ FIXED | Dependency semantics |
+| TEST-005 | ✅ PASS | Cycle rejection |
+| TEST-006 | ✅ PASS | Planner |
+| TEST-007 | ✅ PASS | Deterministic Generator |
+| TEST-008 | ✅ PASS | Hash integrity |
+| TEST-009 | ✅ PASS | Lean verification |
+| TEST-010 | ✅ PASS | Full integration |
 
 ---
 

@@ -10,6 +10,7 @@ mod tests {
     use vaixlns_builder::generator::CodeGenerator;
     use vaixlns_builder::evidence::Evidence;
     use vaixlns_builder::gate::GenesisGate;
+    use vaixlns_builder::ir::CanonicalId;
     use std::fs;
 
     // TEST-003: IR preservation
@@ -21,15 +22,13 @@ mod tests {
         let doc = parser.parse().unwrap();
         let spec = CanonicalSpec::from_ast(&doc).unwrap();
         
-        // Проверяем сущности
         assert_eq!(spec.entities.len(), 2);
-        assert!(spec.entities.contains_key(&vaixlns_builder::ir::CanonicalId::new("core.kernel")));
-        assert!(spec.entities.contains_key(&vaixlns_builder::ir::CanonicalId::new("runtime.engine")));
+        assert!(spec.entities.contains_key(&CanonicalId::new("core.kernel")));
+        assert!(spec.entities.contains_key(&CanonicalId::new("runtime.engine")));
         
-        // Проверяем отношения
         assert_eq!(spec.relations.len(), 1);
-        assert_eq!(spec.relations[0].from, vaixlns_builder::ir::CanonicalId::new("core.kernel"));
-        assert_eq!(spec.relations[0].to, vaixlns_builder::ir::CanonicalId::new("runtime.engine"));
+        assert_eq!(spec.relations[0].from, CanonicalId::new("core.kernel"));
+        assert_eq!(spec.relations[0].to, CanonicalId::new("runtime.engine"));
     }
 
     // TEST-004: Dependency semantics
@@ -42,14 +41,43 @@ mod tests {
         let spec = CanonicalSpec::from_ast(&doc).unwrap();
         let graph = spec.dependency_graph();
         
+        // Проверяем, что все узлы присутствуют
+        let nodes: Vec<_> = graph.nodes.iter().collect();
+        assert!(nodes.contains(&CanonicalId::new("A")));
+        assert!(nodes.contains(&CanonicalId::new("B")));
+        assert!(nodes.contains(&CanonicalId::new("C")));
+        
         // Проверяем направление зависимостей
-        // C зависит от B, B зависит от A
-        assert!(graph.edges.contains_key(&vaixlns_builder::ir::CanonicalId::new("A")));
-        assert!(graph.edges.contains_key(&vaixlns_builder::ir::CanonicalId::new("B")));
-        assert!(graph.edges.contains_key(&vaixlns_builder::ir::CanonicalId::new("C")));
+        // A не зависит от B и C
+        // B зависит от A
+        // C зависит от B
+        assert!(!graph.edges.contains_key(&CanonicalId::new("A")) || 
+                graph.edges[&CanonicalId::new("A")].is_empty());
+        
+        if let Some(b_edges) = graph.edges.get(&CanonicalId::new("B")) {
+            assert!(b_edges.contains(&CanonicalId::new("A")));
+        } else {
+            panic!("B has no edges");
+        }
+        
+        if let Some(c_edges) = graph.edges.get(&CanonicalId::new("C")) {
+            assert!(c_edges.contains(&CanonicalId::new("B")));
+        } else {
+            panic!("C has no edges");
+        }
         
         // Проверяем DAG
         assert!(graph.is_dag());
+        
+        // Проверяем топологическую сортировку
+        let sorted = graph.topological_sort();
+        // C должен быть перед B перед A
+        let pos_a = sorted.iter().position(|x| *x == CanonicalId::new("A")).unwrap();
+        let pos_b = sorted.iter().position(|x| *x == CanonicalId::new("B")).unwrap();
+        let pos_c = sorted.iter().position(|x| *x == CanonicalId::new("C")).unwrap();
+        
+        assert!(pos_c < pos_b);
+        assert!(pos_b < pos_a);
     }
 
     // TEST-005: Cycle rejection
@@ -62,7 +90,6 @@ mod tests {
         let spec = CanonicalSpec::from_ast(&doc).unwrap();
         let graph = spec.dependency_graph();
         
-        // Должен быть обнаружен цикл
         assert!(!graph.is_dag());
         let cycle = graph.detect_cycles();
         assert!(cycle.is_some());
@@ -159,13 +186,11 @@ mod tests {
         let gen = CodeGenerator::new(spec.clone(), plan.clone());
         let output = gen.generate();
         
-        // Проверяем, что код сгенерирован
         assert!(!output.is_empty());
         assert!(output.contains("pub struct core_kernel"));
         assert!(output.contains("pub struct runtime_engine"));
         assert!(output.contains("impl Runtime"));
         
-        // Создаём Evidence
         let mut evidence = Evidence::new()
             .with_spec_hash(&format!("{:016x}", input.len()))
             .with_ast_hash(&format!("{:016x}", doc.decls.len()))
@@ -179,7 +204,6 @@ mod tests {
         evidence.finalize();
         assert!(evidence.is_valid());
         
-        // Проверяем Finality Gate
         let mut gate = GenesisGate::new();
         let finalized = gate.run_all(&evidence);
         assert!(finalized);
